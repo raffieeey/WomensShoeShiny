@@ -24,14 +24,14 @@ ui <- fluidPage(
                   #,selected = min(dataset$price.avg_USD)
                   ,min=min(dataset$price.avg_USD)
                   ,max=max(dataset$price.avg_USD)
-                  ,value=min(dataset$price.avg_USD)
+                  ,value=133
                   ,step=1
                   ),
       
       selectInput(inputId = "weight", 
                   label = "Weight:",
                   choices = unique(sort(dataset$weight_KG ))
-                  #,selected = min(dataset$weight_KG)
+                  ,selected = 0.499
                   ),
       
       # Select variable for x-axis 
