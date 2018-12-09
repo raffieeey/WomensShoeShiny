@@ -18,7 +18,7 @@ clean <- function(data){
   new <- c("id",	"brand"	,"categories",	"colors",	"descriptions",	"features","imageURLs",	
            "manufacturer",	"merchants",	"name",	"prices.amountMin",	"prices.amountMax",	"prices.condition",	"prices.currency",
            "prices.isSale",	"prices.merchant",	"prices.size",	"reviews",	"sizes",	"skus",
-           "sourceURLs",	"weight", "date_parsed")
+           "sourceURLs",	"weight", "date_parsed","colors")
   newdf<- df[new]
   
   
@@ -90,19 +90,18 @@ clean <- function(data){
   
   #Group by ID
   a <- a %>% 
-    group_by(id
-             ,colors) %>% 
+    group_by(id) %>% 
     summarise(count = n(), 
               brand = first(brand),
               price.max = mean(prices.amountMax, na.rm=TRUE),
               price.min = mean(prices.amountMin, na.rm=TRUE),
               urls = imageURLs[1],
+              colors = first(colors),
               name = name[1],
               Onlinemerchant = first(prices.merchant),
               price.avg_USD = round((price.max + price.min) / 2),
               weight_KG = first(weight)
               ,date_trend =  mean(date_parsed,na.rm = TRUE)
-              
     ) %>%
     filter(!is.nan(price.avg_USD))
   
@@ -116,3 +115,4 @@ clean <- function(data){
   
   
 }
+df<-clean(data)
