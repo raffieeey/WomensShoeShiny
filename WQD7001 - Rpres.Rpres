@@ -1,0 +1,126 @@
+
+
+========================================================
+<div align="center">
+<br>
+<hr>
+<h3 style="font-family:Granamond;">In Your Shoes, We Think!</h1>
+<hr>
+<br>
+<b><h5>WQD 7001 - PRINCIPLES OF DATA SCIENCE</h5></b>
+<br>
+<h5>• Nai Siu Hong (WQD180055)</h5>
+<h5>• Teng Chun Yau (WQD180062)</h5>
+<h5>• Raffiyuden Asyraf bin Abdul Razak (WQD170047)</h5>
+<h5>• Lew Teck Wei (WQD180056)</h5>
+<br>
+</div>
+
+========================================================
+<h1 style ="font-family:Granamond;">Introduction</h1>
+<hr>
+<u><h3 style="font-family:Granamond;">Background</h3></u>
+
+The Shiny App that will be presented is a Women Shoes Recommender that recommend users a list of shoes based on criteria specified by users.
+
+<p>Shiny App:https://michaelnai.shinyapps.io/Shoes_shiny/ 
+<p>Github Code:
+<p>Data source: Kaggle
+https://www.kaggle.com/datafiniti/womens-shoes-prices 
+
+
+<u><h3 style="font-family:Granamond;">Problem Statement</h3></u>
+
+At times making a purchasing decision is exceptionally tough, especially when you have some particular features that you’re after. In order to seek for the exact item that meets your requirement, a lot of window shopping have to be done to browse through the shoes offered by different shops and it is extremely time consuming. Hence, this Shiny App is created to help to do the first round of filtering for users who are looking for their ideal pair of shoes. 
+
+<u><h3 style="font-family:Granamond;">Objective</h3></u>
+To group shoes based on several features.
+To recommend shoes to user based on specified criteria.
+To recommend trending shoes based on release date.
+
+========================================================
+<h1 style="font-family:Granamond;"> About the Dataset </h1>
+<hr>
+The dimension of the data before pre-processing
+```{r,echo=F}
+raw_data<-read.csv("7210_1.csv")
+dim(raw_data)
+```
+The dimension of the data after pre-processing
+```{r,echo=F}
+dataset<-read.csv("cleaned_data_color.csv",sep=" ")
+dim(dataset)
+```
+<br>
+The features of the cleaned data include:
+<hr>
+1.  id - Unique ID assigned to each model of shoes.
+<br>
+2.  count - Number of online merchant where that pair of shoes are available.
+<br>
+3.  brand - Brand of the shoes.
+<br>
+4.  price.max - Maximum price of the shoes across all the listed price in different merchants.
+<br>
+5.  price.min - Minimum price of the shoes across all the listed price in different merchants.
+<br>
+6.  urls - URL to retrieve image of the shoes.
+<br>
+7.  colors - Color of the shoes. 
+<br>
+8.  name - Name and general description of the shoes.
+<br>
+9.  Onlinemerchant - Online merchant where the shoes are being sold.
+<br>
+10. price.avg_USD - Average price of the shoes across all the listed price in different merchants, measured in USD.
+<br>
+11. weight_KG - Weight of the shoes in KGs.
+<br>
+12. date_trend - Distance between the release date and current date in months.
+<br>
+13. price_range - Discretized price to convert price into categorical data for Shiny Apps construction purpose.
+<br>
+14. weight_range - Discretized weight to convert weight into categorical data for Shiny Apps construction purpose.
+<br>
+15. trend - Discretized trend to convert date_trend into categorical ata for Shiny Apps construction purpose.
+<br>
+
+
+========================================================
+<h1 style ="font-family:Granamond;">Data Cleaning</h1>
+<hr>
+<p>•  Many columns were deemed irrelevant to our usage hence only needed columns are selected.
+<br>
+<p>•  Prices are all normalized to USD. 
+<br>
+<p>•  Measurement of weights are standardized to KGs.
+<br>
+<p>•  Price condition column is standardized to reduce redundancy.
+<br>
+<p>•  NAs in Brand column are imputed with "Others".
+<br>
+<p>•  Observations with NA in the needed columns are removed.
+<br>
+<p>•  Observations with NaN in the average price column are removed.
+
+
+
+========================================================
+<h1 style ="font-family:Granamond;">Challenges</h1>
+<hr>
+<p>•  Identifying relevant features for our purpose.
+<br>
+<p>•  The dataset used was really messy to start with and explanation of the features from the source are not clear.
+<br>
+<p>•  Reducing thousands of colors into more general color group.
+<br>
+<p>•  Size of the dataset and distribution of shoes categories.
+<br>
+
+========================================================
+<h1 style ="font-family:Granamond;">Challenges (Cont'd)</h1>
+<hr>
+<p>•  Some of the features are duplicated record, because two different sites can upload the same shoes. Hence to remove the duplicates we use average to aggregate these features.
+<br>
+<p>•  The urls are prepared in a list format (One record can have multiple urls), and to overcome this a proper flatten functions were used
+<br>
